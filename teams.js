@@ -39,4 +39,4 @@ const asiaTeams = [
     "Siria"
 ];
 
-const teams = [...africaTeams, ...asiaTeams, ...europeTeams, ...americaTeams];
+export const teams = [...africaTeams, ...asiaTeams, ...europeTeams, ...americaTeams];

@@ -1,0 +1,21 @@
+{
+  "name": "practica3-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marcemaster/practica3-Javascript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marcemaster/practica3-Javascript/issues"
+  },
+  "homepage": "https://github.com/Marcemaster/practica3-Javascript#readme",
+  "type": "module"
+}
