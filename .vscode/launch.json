@@ -23,6 +23,16 @@
             ],
             "program": "${workspaceFolder}/classes/Eliminatoria.js",
             "outputCapture": "std"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Fase Grupos",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/grupos.js",
+            "outputCapture": "std"
         }
     ]
 }
