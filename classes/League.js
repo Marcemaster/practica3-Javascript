@@ -1,12 +1,4 @@
 export default class League {
-    // name
-    // teams
-    // rounds
-    // players
-    // matchDays
-    // matches
-    // results
-    // scores
     constructor(name, teams, config = {}) {
         this.name = name;
 
@@ -15,8 +7,6 @@ export default class League {
         // planificación
         this.matchDaySchedule = [];
         this.summaries = [];
-        // this.scores = [];
-        // this.matches = [];
     }
 
     setup(config = {}) {
@@ -28,7 +18,6 @@ export default class League {
         this.teams = [];
         for (let teamName of teams) {
             let teamObj = this.customizeTeam(teamName);
-            // añadimos el objeto descriptivo del equipo al array de equipos
             this.teams.push(teamObj)
         }
     }
@@ -43,31 +32,23 @@ export default class League {
     }
 
     start() {
-        // recorrer la planificacion
-        // para cada jornada
         for(const matchDay of this.matchDaySchedule) {
-            // sirve para almacenar la información de los resultados de la jornada y generar su clasificación
             const matchDaySummary = {
-                results: [], // array de resultados
-                standings: undefined // clasificación al terminar la jornada
+                results: [],
+                standings: undefined
             }
-            // para cada partido de la jornada
             for(const match of matchDay) { 
-                // jugar el partido
                 if(match.home === null || match.away === null) {
-                    // saltamos el partido porque el equipo descansa
                     continue;
                 }
                 const result = this.play(match);
-                // actualizar las métricas de los equipos
                 this.updateTeams(result)
 
-                // almacenamos el resultado de la jornada
                 matchDaySummary.results.push(result)
             }
-            // TODO  generar la tabla de clasificacion al finalizar la jornada
+
             matchDaySummary.standings = this.getStandings().map(team => Object.assign({}, team))
-            // guardar el resumen de la jornada en el array de resumenes
+
             this.summaries.push(matchDaySummary);
         }
     }
@@ -116,52 +97,6 @@ export default class League {
             }
         }
     }
-
-    // scheduleMatchDays() {
-    //     // genera el layout de la planificación
-    //     this.initSchedule()
-    //     // ponemos los equipos locales según https://es.wikipedia.org/wiki/Sistema_de_todos_contra_todos
-    //     this.setLocalTeams();
-    //     this.setAwayTeams();
-    //     this.fixLastTeamSchedule();
-
-    //     // nos hacemos una copia de la ronda original para tener una referencia hacia los partidos
-    //     // de esta forma, siempre tendremos el mismo numero de jornadas y evitamos que crezca exponencialmente
-    //     const originalRound = [...this.matchDaySchedule];
-    //     // si hay mas de una ronda
-    //     if (this.config.rounds > 1) {
-    //         // para cada ronda extra
-    //         for (let i = 1; i < this.config.rounds; i++) {
-    //             // hacemos copia de la primera ronda
-    //             const newRound = [];
-    //             // intercambiamos home y away de los partidos
-    //             for (const matchDay of originalRound) {
-    //                 const newMatchDay = [];
-    //                 for (const match of matchDay) {
-    //                     const copyMatch = { ...match } // la clave para poder tener partidos únicos
-    //                     // si la ronda es par
-    //                     if (i % 2 === 1) {
-    //                         const tempHomeTeam = copyMatch.home;
-    //                         copyMatch.home = copyMatch.away;
-    //                         copyMatch.away = tempHomeTeam
-    //                     }
-    //                     newMatchDay.push(copyMatch);
-    //                     // jornada llena, la ponemos en la planificación
-    //                     // guardamos la ronda en la planificacion
-    //                     //this.matchDaySchedule.push(newMatchDay);
-    //                     // ALTERNATIVA 0 a guardar en la planificacion
-    //                     // newRound.forEach(newMatchDay2 => this.matchDaySchedule.push(newMatchDay2))
-    //                     // ALTERNATIVA 1 a guardar en la planificación
-    //                     // this.matchDaySchedule.push(...newRound)
-    //                     // ALTERNATIVA 2 a guardar en la planificación
-    //                     // this.matchDaySchedule = this.matchDaySchedule.concat(newRound)
-    //                 }
-    //                 newRound.push(newMatchDay)
-    //             }
-    //             this.matchDaySchedule.push(...newRound)
-    //         }
-    //     }
-    // }
 
     getTeamNames() {
         return this.teams.map(team => team.name)

@@ -20,10 +20,6 @@ function dividir(arr, len) {
     return chunks;
 }
 
-let grupos = dividir(teams, 4);
-// console.log(grupos)
+export let grupos = dividir(teams, 4);
 
-for (let i = 0; i < groups.length; i++) {
-    groups[i]=grupos[i]
-    console.log(groups[i])
-}
+export let select_16 = dividir(teams,16);

@@ -1,6 +1,6 @@
 import League from "./League.js";
 
-export default class FootballLeague extends League {
+export class FootballLeague extends League {
     constructor(name, teams, config = {}){
         super(name, teams, config)
     }
@@ -71,7 +71,7 @@ export default class FootballLeague extends League {
     }
 
     generateGoals(){
-        return Math.floor(Math.random() * 10);
+        return Math.floor(Math.random() * 6);
     }
 
     getStandings() {

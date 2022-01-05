@@ -13,6 +13,16 @@
             ],
             "program": "${workspaceFolder}/index.js",
             "outputCapture": "std"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Probando eliminatorias",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/classes/Eliminatoria.js",
+            "outputCapture": "std"
         }
     ]
 }
