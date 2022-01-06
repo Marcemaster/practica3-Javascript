@@ -1,28 +1,43 @@
 import { FootballLeague } from "../classes/FootballLeague.js";
 
 export function texto_inicio() {
-    console.log("\n¡Comienza el mundial de Quatar 2022!\n");
+    console.log("\n=============================================")
+    console.log("==== ¡COMIENZA EL MUNDIAL DE QATAR 2022! ====");
+    console.log("=============================================")
 }
-export function texto_equipos_clasificados() {
-    console.log("\nLos 16 equipos clasificados son los siguientes: \n");
+export function texto_eliminatorias() {
+    console.log("\n==============================================")
+    console.log("==== COMIENZO DE LA FASE DE ELIMINATORIAS ====");
+    console.log("==============================================")
+}
+
+export function texto_equipos_clasificados(equipos) {
+    console.log(`\nLos 16 equipos clasificados para octavos de final son los siguientes: \n\n${equipos.slice(0,8)},\n${equipos.slice(8,15)} y ${equipos.slice(-1)} `);
 }
 export function texto_octavos() {
-    console.log("\n¡Comienzan los octavos de final!\n");
+    console.log("\n==== OCTAVOS DE FINAL ====\n");
 }
 export function texto_cuartos() {
-    console.log("\n¡Comienzan los cuartos de final!\n");
+    console.log("\n==== CUARTOS DE FINAL ====\n");
 }
 export function texto_semis() {
-    console.log("\n¡Comienzan las semifinales!\n");
+    console.log("\n==== SEMIFINALES ====!\n");
+}
+export function texto_tercer_cuarto() {
+    console.log("\n==== TERCER Y CUARTO PUESTO ====\n");
 }
 export function texto_final() {
-    console.log("\n¡Comienza la gran final!\n");
+    console.log("\n==== FINAL ====\n");
 }
-export function ganador(winner) {
-    console.log(
-        "\x1b[33m%s\x1b[0m",
-        `¡${winner} es campeona de la copa mundial de Qatar 2022!`
-    );
+
+export function dividir(arr, len) {
+    var chunks = [],
+        i = 0,
+        n = arr.length;
+    while (i < n) {
+        chunks.push(arr.slice(i, (i += len)));
+    }
+    return chunks;
 }
 
 export function partido_eliminacion(grupo, ronda) {
@@ -31,12 +46,12 @@ export function partido_eliminacion(grupo, ronda) {
     });
     footballLeague.scheduleMatchDays();
     footballLeague.start();
-    // Una vez terminada cada jornada, se deberá mostrar cómo queda la clasificación de la misma.
     footballLeague.summaries.forEach((summary) => {
         summary.results.forEach((result) => {
             let winner = summary.standings[0].name;
             if (result.homeGoals - result.awayGoals === 0) {
                 console.log(
+                    // ESTO HAY QUE CAMBIARLO, RESULTADO CUANDO EMPATAN EN LA RONDA DE ELIMINACIÓN.
                     `${result.homeTeamName} ${result.homeGoals + 1} - ${
                         result.awayGoals
                     } ${result.awayTeamName} => ${result.homeTeamName}`
@@ -50,4 +65,13 @@ export function partido_eliminacion(grupo, ronda) {
             }
         });
     });
+}
+
+export function ganador(winner) {
+    console.log("\n========================================================")
+    console.log(
+        "\x1b[33m%s\x1b[0m",
+        `¡${winner} es campeona de la copa mundial de Qatar 2022!`
+        );
+    console.log("========================================================")
 }

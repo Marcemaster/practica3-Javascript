@@ -19,9 +19,9 @@ const americaTeams = [
   "Brasil",
   "Canada",
   "Chile",
-  "Petare",
+  "Ecuador",
   "Estados Unidos",
-  "Venezuela",
+  "México",
   "Uruguay",
 ];
 const africaTeams = [
