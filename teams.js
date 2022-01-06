@@ -19,9 +19,9 @@ const americaTeams = [
   "Brasil",
   "Canada",
   "Chile",
-  "Ecuador",
+  "Petare",
   "Estados Unidos",
-  "México",
+  "Venezuela",
   "Uruguay",
 ];
 const africaTeams = [
@@ -40,3 +40,5 @@ const asiaTeams = [
 ];
 
 export const teams = [...africaTeams, ...asiaTeams, ...europeTeams, ...americaTeams];
+
+export const group_names = ['A','B','C','D','D','E','F','G','H']

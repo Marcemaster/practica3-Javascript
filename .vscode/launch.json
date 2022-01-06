@@ -21,7 +21,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/classes/Eliminatoria.js",
+            "program": "${workspaceFolder}/Eliminatoria.js",
             "outputCapture": "std"
         },
         {
