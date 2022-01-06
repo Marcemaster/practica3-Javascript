@@ -1,23 +1,19 @@
-import {texto_inicio,texto_eliminatorias,texto_octavos,texto_cuartos,texto_semis,texto_tercer_cuarto,texto_final, ganador,texto_equipos_clasificados,dividir, partido_eliminacion} from './utils/functions.js'
+import {texto_inicio,texto_eliminatorias,texto_octavos,texto_cuartos,texto_semis,texto_tercer_cuarto,texto_final, ganador,dividir, partido_eliminacion} from './utils/functions.js'
 import { setupArrays } from "./utils/shuffle.js";
 import { FootballLeague } from "./classes/FootballLeague.js";
 import { teams, group_names } from "./teams.js";
 
 
-// Inicio del Mundial
-
 texto_inicio()
 
-// Mezclar equipos
+
+// Mezclar equipos y dividirlos en 8 grupos. Creamos las variables para la ronda de eliminación.
 
 setupArrays();
 teams.shuffle();
-
-// Dividir equipos en 8 grupos y creamos las variables para guardar los ganadres.
-
 let grupos = dividir(teams, 4);
 let equipos_clasificados = [];
-let cuartos = [], semis = [], tercer_cuarto = [], final=[], campeon = []
+let cuartos = [], semis = [], tercer_cuarto = [],tercer = [], final=[], campeon = []
 
 // Jugar Fase de Grupos
 
@@ -27,39 +23,35 @@ for (let i = 0; i < grupos.length; i++) {
     footballLeague.scheduleMatchDays();
     // Mostrar los equipos inscritos por pantalla.
     const teamNames = footballLeague.getTeamNames();
-    console.log("-----------------------");
-    console.log(`GRUPO ${group_names[i]}`);
+    console.log(`GRUPO ${group_names[i]}\n-----------------------`);
     teamNames.forEach(function (team) {
         console.log(team);
     });
     console.log("-----------------------");
     // Mostrar la planificación por pantalla.
     footballLeague.matchDaySchedule.forEach((matchDay, matchDayIndex) => {
-        console.log(`Jorndada ${matchDayIndex + 1}`);
+        console.log(`Jorndada ${matchDayIndex + 1}: \n`);
         matchDay.forEach((match) => {
-                console.log(`${match.home} vs ${match.away}`);
+                console.log(`-${match.home} vs ${match.away}`);
         });
-        console.log("=======================");
+        console.log("-----------------------");
     });
     // Jugar partidos
     footballLeague.start();
-    // Mostrar clasificación tras cada jornada
     footballLeague.summaries.forEach((summary, matchDayIndex) => {
-        console.log("\n");
         console.log(`Resultados de la jornada ${matchDayIndex + 1}`);
         summary.results.forEach((result) => {
             console.log(
                 `${result.homeTeamName} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeamName}`
             );
         });
-        console.table(summary.standings);
+        console.table(summary.standings,["name", "points","goalsFor","goalsAgainst"]);
     });
     equipos_clasificados.push(footballLeague.summaries[2].standings[0].name);
     equipos_clasificados.push(footballLeague.summaries[2].standings[1].name);
 }
 
-texto_eliminatorias()
-texto_equipos_clasificados(equipos_clasificados)
+texto_eliminatorias(equipos_clasificados)
 
 // RONDA DE OCTAVOS 
 
@@ -85,16 +77,10 @@ for (let i= 0; i <semis.length; i+=2) {
 }
 
 // TERCER Y CUARTO PUESTO
-/*
+
 texto_tercer_cuarto()
-let tercer = []
-let cuarto = []
-tercer_cuarto =
+tercer_cuarto = semis.filter( item => !final.includes(item))
 partido_eliminacion(tercer_cuarto, tercer)
-cuarto = semis.filter((item) => item!==(tercer[0]))
-console.log(tercer[0])
-console.log(cuarto[0])
-*/
 
 // FINAL
 

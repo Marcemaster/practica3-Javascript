@@ -24,6 +24,7 @@ export class FootballLeague extends League {
             points: 0,
             goalsFor: 0,
             goalsAgainst: 0
+            
         }
     }
 

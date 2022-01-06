@@ -2,18 +2,16 @@ import { FootballLeague } from "../classes/FootballLeague.js";
 
 export function texto_inicio() {
     console.log("\n=============================================")
-    console.log("==== ¡COMIENZA EL MUNDIAL DE QATAR 2022! ====");
-    console.log("=============================================")
+    console.log("====  COMIENZA EL MUNDIAL DE QATAR 2022  ====");
+    console.log("=============================================\n")
 }
-export function texto_eliminatorias() {
+export function texto_eliminatorias(equipos) {
     console.log("\n==============================================")
     console.log("==== COMIENZO DE LA FASE DE ELIMINATORIAS ====");
     console.log("==============================================")
-}
-
-export function texto_equipos_clasificados(equipos) {
     console.log(`\nLos 16 equipos clasificados para octavos de final son los siguientes: \n\n${equipos.slice(0,8)},\n${equipos.slice(8,15)} y ${equipos.slice(-1)} `);
 }
+
 export function texto_octavos() {
     console.log("\n==== OCTAVOS DE FINAL ====\n");
 }
@@ -28,6 +26,15 @@ export function texto_tercer_cuarto() {
 }
 export function texto_final() {
     console.log("\n==== FINAL ====\n");
+}
+
+export function ganador(winner) {
+    console.log("\n========================================================")
+    console.log(
+        "\x1b[33m%s\x1b[0m",
+        `¡${winner} es campeona de la copa mundial de Qatar 2022!`
+        );
+    console.log("========================================================")
 }
 
 export function dividir(arr, len) {
@@ -67,11 +74,3 @@ export function partido_eliminacion(grupo, ronda) {
     });
 }
 
-export function ganador(winner) {
-    console.log("\n========================================================")
-    console.log(
-        "\x1b[33m%s\x1b[0m",
-        `¡${winner} es campeona de la copa mundial de Qatar 2022!`
-        );
-    console.log("========================================================")
-}
