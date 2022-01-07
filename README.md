@@ -1,4 +1,4 @@
-# Práctica Introducción a Javascript KeepCoding Bootcamp
+# Práctica 3 Introducción a Javascript KeepCoding Bootcamp
 
 Simulación de la copa mundial de fútbol Qatar 2022
 
