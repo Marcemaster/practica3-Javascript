@@ -1,15 +1,9 @@
 export default class League {
-    constructor(name, teams, config = {}) {
-        this.name = name;
+    constructor(teams, config = {}) {
         this.setupTeams(teams);
         this.setup(config);
         this.matchDaySchedule = [];
         this.summaries = [];
-    }
-
-    setup(config = {}) {
-        const defaultConfig = { rounds: 1 };
-        this.config = Object.assign(defaultConfig, config);
     }
 
     setupTeams(teams) {
@@ -22,10 +16,7 @@ export default class League {
 
     customizeTeam(teamName) {
         return {
-            name: teamName,
-            matchesWon: 0,
-            matchesDraw: 0,
-            matchesLost: 0,
+            Equipo: teamName,
         };
     }
 
@@ -79,7 +70,7 @@ export default class League {
     }
 
     getTeamNames() {
-        return this.teams.map((team) => team.name);
+        return this.teams.map((team) => team.Equipo);
     }
 
     getTeamNamesForSchedule() {
@@ -124,11 +115,9 @@ export default class League {
         let teamIndex = maxAwayTeams - 1;
         round.forEach((matchDay) => {
             matchDay.forEach(function (match, matchIndex) {
-                // los arrays empiezan las posiciones en 0
                 if (matchIndex === 0) {
                     match.away = teamNames[maxAwayTeams];
                 } else {
-                    // para el resto de partidos que no son el primero
                     match.away = teamNames[teamIndex];
                     teamIndex--;
                     if (teamIndex < 0) {

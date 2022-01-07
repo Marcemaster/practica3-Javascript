@@ -13,19 +13,19 @@ export function texto_eliminatorias(equipos) {
 }
 
 export function texto_octavos() {
-    console.log("\n==== OCTAVOS DE FINAL ====\n");
+    console.log("\n====  OCTAVOS DE FINAL   ====\n");
 }
 export function texto_cuartos() {
-    console.log("\n==== CUARTOS DE FINAL ====\n");
+    console.log("\n====  CUARTOS DE FINAL  ====\n");
 }
 export function texto_semis() {
-    console.log("\n==== SEMIFINALES ====!\n");
+    console.log("\n====   SEMIFINALES   ====\n");
 }
 export function texto_tercer_cuarto() {
-    console.log("\n==== TERCER Y CUARTO PUESTO ====\n");
+    console.log("\n====  TERCER Y CUARTO PUESTO  ====\n");
 }
 export function texto_final() {
-    console.log("\n==== FINAL ====\n");
+    console.log("\n====     FINAL     ====\n");
 }
 
 export function ganador(winner) {
@@ -48,22 +48,19 @@ export function dividir(arr, len) {
 }
 
 export function partido_eliminacion(grupo, ronda) {
-    let footballLeague = new FootballLeague("Mundial de Futbol", grupo, {
-        rounds: 1,
-    });
+    let footballLeague = new FootballLeague(grupo);
     footballLeague.scheduleMatchDays();
     footballLeague.start();
     footballLeague.summaries.forEach((summary) => {
         summary.results.forEach((result) => {
-            let winner = summary.standings[0].name;
+            let winner = summary.standings[0].Equipo;
             if (result.homeGoals - result.awayGoals === 0) {
                 console.log(
-                    // ESTO HAY QUE CAMBIARLO, RESULTADO CUANDO EMPATAN EN LA RONDA DE ELIMINACIÓN.
-                    `${result.homeTeamName} ${result.homeGoals + 1} - ${
+                    `${result.homeTeamName} ${result.homeGoals} - ${
                         result.awayGoals
-                    } ${result.awayTeamName} => ${result.homeTeamName}`
+                    } ${result.awayTeamName} => EMPATE`
                 );
-                ronda.push(result.homeTeamName);
+                partido_eliminacion(grupo,ronda)
             } else {
                 console.log(
                     `${result.homeTeamName} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeamName} => ${winner} `
@@ -73,4 +70,3 @@ export function partido_eliminacion(grupo, ronda) {
         });
     });
 }
-

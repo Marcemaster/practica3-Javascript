@@ -1,31 +1,28 @@
 import League from "./League.js";
 
 export class FootballLeague extends League {
-    constructor(name, teams, config = {}){
-        super(name, teams, config)
+    constructor(teams, config = {}) {
+        super(teams, config);
     }
 
-    setup(config = {}){
+    setup(config = {}) {
         const defaultConfig = {
             rounds: 1,
-            pointsPerWin: 3, 
-            pointsPerDraw: 1, 
-            pointsPerLose: 0, 
-        }
+            pointsPerWin: 3,
+            pointsPerDraw: 1,
+        };
         this.config = Object.assign(defaultConfig, config);
     }
 
-    customizeTeam(teamName){
-        // usamos super.customizeTeam para ejecutar el código de customizeTeam de la clase "padre"
-        const customizedTeam = super.customizeTeam(teamName)
-        // usamos spread operator para esparcir los valore de customizedTeam en nuestro nuevo objeto team
+    customizeTeam(teamName) {
+        const customizedTeam = super.customizeTeam(teamName);
         return {
             ...customizedTeam,
-            points: 0,
-            goalsFor: 0,
-            goalsAgainst: 0
-            
-        }
+            Puntos: 0,
+            GolesMarcados: 0,
+            GolesEncajados: 0,
+            DiferenciaGoles: 0,
+        };
     }
 
     play(match) {
@@ -37,65 +34,55 @@ export class FootballLeague extends League {
             homeGoals,
             awayTeamName: match.away,
             awayGoals,
-        }
+        };
+    }
+
+    generateGoals() {
+        return Math.floor(Math.random() * 6);
     }
 
     updateTeams(result) {
-        const homeTeam = this.teams.find(team => team.name === result.homeTeamName)
-        const awayTeam = this.teams.find(team => team.name === result.awayTeamName)
+        const homeTeam = this.teams.find(
+            (team) => team.Equipo === result.homeTeamName
+        );
+        const awayTeam = this.teams.find(
+            (team) => team.Equipo === result.awayTeamName
+        );
+        homeTeam.GolesMarcados += result.homeGoals;
+        homeTeam.GolesEncajados += result.awayGoals;
+        awayTeam.GolesMarcados += result.awayGoals;
+        awayTeam.GolesEncajados += result.homeGoals;
+        homeTeam.DiferenciaGoles += result.homeGoals - result.awayGoals
+        awayTeam.DiferenciaGoles += result.awayGoals - result.homeGoals
 
-        homeTeam.goalsFor += result.homeGoals;
-        homeTeam.goalsAgainst += result.awayGoals;
-        awayTeam.goalsFor += result.awayGoals;
-        awayTeam.goalsAgainst += result.homeGoals;
-
-        if(result.homeGoals > result.awayGoals) {
-            // gana el local
-            homeTeam.points += this.config.pointsPerWin;
-            awayTeam.points += this.config.pointsPerLose;
-            homeTeam.matchesWon++;
-            awayTeam.matchesLost++;
-        } else if(result.homeGoals < result.awayGoals) {
-            // gana el visitante
-            awayTeam.points += this.config.pointsPerWin;
-            homeTeam.points += this.config.pointsPerLose;
-            awayTeam.matchesWon++;
-            homeTeam.matchesLost++;
+        if (result.homeGoals > result.awayGoals) {
+            homeTeam.Puntos += this.config.pointsPerWin;
+        } else if (result.homeGoals < result.awayGoals) {
+            awayTeam.Puntos += this.config.pointsPerWin;
         } else {
-            // empatan
-            awayTeam.points += this.config.pointsPerDraw;
-            homeTeam.points += this.config.pointsPerDraw;
-            awayTeam.matchesDraw++;
-            homeTeam.matchesDraw++;
+            awayTeam.Puntos++;
+            homeTeam.Puntos++;
         }
-
-    }
-
-    generateGoals(){
-        return Math.floor(Math.random() * 6);
     }
 
     getStandings() {
         const teams = [...this.teams];
-        return teams.sort(function(teamA, teamB) {
-            // -1 0 1
-            if(teamA.points > teamB.points) {
-                return -1
-            } else if(teamA.points < teamB.points) {
-                return 1
+        return teams.sort(function (teamA, teamB) {
+            if (teamA.Puntos > teamB.Puntos) {
+                return -1;
+            } else if (teamA.Puntos < teamB.Puntos) {
+                return 1;
             } else {
-                const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst;
-                const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst;
-
-                if(goalsDiffA > goalsDiffB) {
-                    return -1
-                } else if (goalsDiffA < goalsDiffB) {
-                    return 1
+                if (teamA.DiferenciaGoles > teamB.DiferenciaGoles) {
+                    return -1;
+                } else if (teamA.DiferenciaGoles < teamB.DiferenciaGoles) {
+                    return 1;
+                } else if (teamA.GolesMarcados < teamB.GolesMarcados) {
+                    return 1;
                 } else {
-                    // más criterios de evaluacion en caso de empate
-                    return 0
+                    return 0;
                 }
             }
-        })
+        });
     }
 }

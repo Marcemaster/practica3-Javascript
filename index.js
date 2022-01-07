@@ -18,7 +18,7 @@ let cuartos = [], semis = [], tercer_cuarto = [],tercer = [], final=[], campeon 
 // Jugar Fase de Grupos
 
 for (let i = 0; i < grupos.length; i++) {
-    let footballLeague = new FootballLeague("Foot", grupos[i], { rounds: 1 });
+    let footballLeague = new FootballLeague(grupos[i]);
 
     footballLeague.scheduleMatchDays();
     // Mostrar los equipos inscritos por pantalla.
@@ -45,16 +45,15 @@ for (let i = 0; i < grupos.length; i++) {
                 `${result.homeTeamName} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeamName}`
             );
         });
-        console.table(summary.standings,["name", "points","goalsFor","goalsAgainst"]);
+        console.table(summary.standings,["Equipo", "Puntos","GolesMarcados","GolesEncajados","DiferenciaGoles"]);
     });
-    equipos_clasificados.push(footballLeague.summaries[2].standings[0].name);
-    equipos_clasificados.push(footballLeague.summaries[2].standings[1].name);
+    equipos_clasificados.push(footballLeague.summaries[2].standings[0].Equipo);
+    equipos_clasificados.push(footballLeague.summaries[2].standings[1].Equipo);
 }
 
 texto_eliminatorias(equipos_clasificados)
 
 // RONDA DE OCTAVOS 
-
 texto_octavos()
 for (let i = 0; i < equipos_clasificados.length; i+=4 ) {
     let cuadro_izquierda = [equipos_clasificados[i],equipos_clasificados[i+3]]
@@ -64,7 +63,6 @@ for (let i = 0; i < equipos_clasificados.length; i+=4 ) {
 }
 
 // CUARTOS DE FINAL
-
 texto_cuartos()
 for (let i= 0; i <cuartos.length; i+=2) {
     partido_eliminacion(cuartos.slice(i,i+2), semis)
@@ -77,13 +75,11 @@ for (let i= 0; i <semis.length; i+=2) {
 }
 
 // TERCER Y CUARTO PUESTO
-
 texto_tercer_cuarto()
 tercer_cuarto = semis.filter( item => !final.includes(item))
 partido_eliminacion(tercer_cuarto, tercer)
 
 // FINAL
-
 texto_final()
 partido_eliminacion(final, campeon)
 ganador(campeon[0])
