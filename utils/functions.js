@@ -52,10 +52,9 @@ export function texto_eliminatorias(equipos) {
     console.log("\n==============================================")
     console.log("==== COMIENZO DE LA FASE DE ELIMINATORIAS ====");
     console.log("==============================================")
-    console.log(`\nLos 16 equipos clasificados para octavos de final son los siguientes:\n\n
-    ${equipos.slice(0,8)},\n
-    ${equipos.slice(8,15)} y 
-    ${equipos.slice(-1)}`);
+    console.log(`\nLos 16 equipos clasificados para octavos de final son los siguientes:\n
+    ${equipos.slice(0,8)},
+    ${equipos.slice(8,15)} y ${equipos.slice(-1)}`);
 }
 
 export function texto_octavos(equipos_clasificados, cuartos) {
